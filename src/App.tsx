@@ -9,19 +9,25 @@ import Translate from "./Translate";
 
 const theme = createMuiTheme({
     palette: {
-        type: "dark",
-        // text: {
-        //     primary: "#fff",
-        //     secondary: "#000",
-        // },
-        // background: {
-        //     paper: "#fbeabe"
-        // },
+        text: {
+            primary: "#2f3c7e",
+            secondary: "#fff",
+        },
+        background: {
+            paper: "#fff"
+        },
         // getContrastText: background => "#2f3c7e"
     },
     typography: {
         fontFamily: `"Baloo 2", "Helvetica", "Arial", "sans-serif"`
     },
+    overrides: {
+        MuiTooltip: {
+            tooltip: {
+                fontSize: "1em",
+            }
+        }
+    }
 });
 
 function App() {
@@ -29,9 +35,9 @@ function App() {
         <ThemeProvider theme={theme}>
             <div className="App">
                 <header>
-                    <Typography color="textPrimary" variant="h2"
+                    <Typography color="textSecondary" variant="h2"
                                 style={{display: "inline-block"}}>Multi-Translate</Typography>
-                    <Typography color="textPrimary"
+                    <Typography color="textSecondary"
                                style={{display: "inline-block", marginLeft: "1rem", marginRight: "1rem"}}>made
                         with <Favorite fontSize="inherit"/> by</Typography>
                     <a href="https://rekon.uk">
@@ -42,7 +48,7 @@ function App() {
                     </a>
                 </header>
                 <section>
-                    <Translate></Translate>
+                    <Translate/>
                 </section>
             </div>
         </ThemeProvider>

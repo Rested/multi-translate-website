@@ -24,7 +24,7 @@ type AlignmentSection = {
     text: string,
 }
 
-type AlignmentMap = {
+export type AlignmentMap = {
     dest: AlignmentSection,
     src: AlignmentSection,
 }
@@ -56,7 +56,7 @@ export async function getAvailableEngines() {
 }
 
 
-export async function translate(translationRequest: TranslationRequest): Promise<TranslationResponse> {
+export async function translate(translationRequest: TranslationRequest): Promise<TranslationResponse | string> {
     const snakeRequest: ParsedUrlQueryInput = {}
     Object.keys(translationRequest).forEach(key => {
         // @ts-ignore
@@ -64,16 +64,33 @@ export async function translate(translationRequest: TranslationRequest): Promise
     });
     return fetch(`${apiUrl}/translate?${queryString.stringify(snakeRequest)}`, {
         method: "GET"
-    }).then(r => r.json()).then(respJson => {
-        return {
-            engine: respJson.engine,
-            engineVersion: respJson.engine_version,
-            detectedLanguageConfidence: respJson.detected_language_confidence,
-            fromLanguage: respJson.from_language,
-            sourceText: respJson.source_text,
-            toLanguage: respJson.to_language,
-            translatedText: respJson.translated_text,
-            alignment: respJson.alignment
+    }).then(r => {
+        if (r.status >= 500){
+            return `Internal server error (${r.status})`
         }
+        if (r.status >= 400){
+            return r.json().then(respJson => {
+                if (respJson.detail){
+                    if (typeof respJson.detail === "string") return respJson.detail
+                    return `Bad ${respJson.detail[0].loc[1]} ${respJson.detail[0].msg}`
+                }
+                if (respJson.error) {
+                    return respJson.error
+                }
+            })
+        }
+
+        return r.json().then(respJson => {
+            return {
+                engine: respJson.engine,
+                engineVersion: respJson.engine_version,
+                detectedLanguageConfidence: respJson.detected_language_confidence,
+                fromLanguage: respJson.from_language,
+                sourceText: respJson.source_text,
+                toLanguage: respJson.to_language,
+                translatedText: respJson.translated_text,
+                alignment: respJson.alignment
+            }
+        })
     })
 }
