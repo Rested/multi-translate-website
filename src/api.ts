@@ -92,5 +92,7 @@ export async function translate(translationRequest: TranslationRequest): Promise
                 alignment: respJson.alignment
             }
         })
+    }).catch(r => {
+        return "Unknown Network Error"
     })
 }
