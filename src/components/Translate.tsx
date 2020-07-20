@@ -3,11 +3,11 @@ import {Button, Card, CardContent, Grid, LinearProgress, Tooltip, Typography} fr
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 
-import {getAvailableEngines, getSupportedLanguages, SupportedLanguages, translate, TranslationResponse} from "./api";
+import {getAvailableEngines, getSupportedLanguages, SupportedLanguages, translate, TranslationResponse} from "../api";
 import _ from "lodash";
 import ISO6391 from 'iso-639-1';
 import {makeStyles} from "@material-ui/core/styles";
-import {AUTO, defaultLanguage, topLanguages} from "./constants";
+import {AUTO, defaultLanguage, topLanguages} from "../constants";
 import LanguageSelector from "./LanguageSelector";
 import TranslateControls from "./TranslateControls";
 import TranslationInput from "./TranslationInput";
@@ -135,11 +135,13 @@ function Translate() {
                                 setToLanguage(supportedLanguages[newFromLanguage].find(v => v !== newFromLanguage) || defaultLanguage);
                             }
                         }
+                        setLanguageDialogToShow(null);
                     }} show={languageDialogToShow === "from"}/>
                     <LanguageSelector languageCodes={toLanguageOptions.sort(sortLanguages)}
                                       selectedLanguage={toLanguage}
                                       onSelect={(value) => {
                                           setToLanguage(String(value))
+                                          setLanguageDialogToShow(null);
                                       }} show={languageDialogToShow === "to"}/>
                 </Grid>
                 <Grid item xs={12} sm={6}>

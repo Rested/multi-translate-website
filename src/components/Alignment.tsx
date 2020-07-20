@@ -1,5 +1,5 @@
 import React, {useRef, useEffect} from 'react';
-import {AlignmentMap} from "./api";
+import {AlignmentMap} from "../api";
 import {Container, Grid, Typography} from "@material-ui/core";
 import {ArcherContainer, ArcherElement} from 'react-archer';
 

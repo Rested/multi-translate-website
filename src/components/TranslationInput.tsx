@@ -1,6 +1,6 @@
 import React, {MutableRefObject, RefObject, useState} from 'react';
 import {CardContent, TextField, Typography} from "@material-ui/core";
-import {MAX_LENGTH} from "./constants";
+import {MAX_LENGTH} from "../constants";
 
 function TranslationInput(props: any, ref: any) {
     const [sourceText, setSourceText] = useState("");

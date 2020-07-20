@@ -1,7 +1,7 @@
 import React from "react";
 import {Button, Card, Grid} from "@material-ui/core";
 import ISO6391 from 'iso-639-1';
-import {AUTO, AUTO_NAME} from "./constants";
+import {AUTO, AUTO_NAME} from "../constants";
 
 type LanguageSelectorOptions = {
     languageCodes: string[],

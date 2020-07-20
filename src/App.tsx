@@ -1,11 +1,13 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
-import {Typography, ThemeProvider, createMuiTheme} from "@material-ui/core";
+import {Typography, ThemeProvider, createMuiTheme, AppBar, Tabs, Paper, Tab} from "@material-ui/core";
 import {purple} from "@material-ui/core/colors";
 import logo from "./logo.svg"
 import {Favorite} from "@material-ui/icons";
 import logoTxt from "./logotxt.svg"
-import Translate from "./Translate";
+import Translate from "./components/Translate";
+import About from "./components/About";
+import Support from "./components/Support";
 
 const theme = createMuiTheme({
     palette: {
@@ -31,6 +33,8 @@ const theme = createMuiTheme({
 });
 
 function App() {
+    const [tab, setTab] = useState(0);
+
     return (
         <ThemeProvider theme={theme}>
             <div className="App">
@@ -47,9 +51,20 @@ function App() {
                         </div>
                     </a>
                 </header>
-                <section>
+                <Paper style={{marginTop: 20, marginBottom: 40}}>
+                    <Tabs centered onChange={(event: React.ChangeEvent<{}>, newValue: number) => {
+                        setTab(newValue);
+                    }} value={tab}>
+                        <Tab label="Translate" />
+                        <Tab label="About" />
+                        <Tab label="Consulting" />
+                    </Tabs>
+                </Paper>
+                <section style={tab !== 0 ? {display: "none"} : {}}>
                     <Translate/>
                 </section>
+                {tab === 1 ? <section><About/></section>: null}
+                {tab === 2 ? <section><Support/></section>: null}
             </div>
         </ThemeProvider>
     );
