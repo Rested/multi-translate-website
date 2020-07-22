@@ -1,13 +1,13 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './App.css';
-import {Typography, ThemeProvider, createMuiTheme, AppBar, Tabs, Paper, Tab} from "@material-ui/core";
-import {purple} from "@material-ui/core/colors";
+import {Typography, ThemeProvider, createMuiTheme, Tabs, Paper, Tab} from "@material-ui/core";
 import logo from "./logo.svg"
 import {Favorite} from "@material-ui/icons";
 import logoTxt from "./logotxt.svg"
 import Translate from "./components/Translate";
 import About from "./components/About";
 import Support from "./components/Support";
+import useHash from "./hooks/hash";
 
 const theme = createMuiTheme({
     palette: {
@@ -21,7 +21,10 @@ const theme = createMuiTheme({
         // getContrastText: background => "#2f3c7e"
     },
     typography: {
-        fontFamily: `"Baloo 2", "Helvetica", "Arial", "sans-serif"`
+        fontFamily: `"Baloo 2", "Helvetica", "Arial", "sans-serif"`,
+        h5: {
+            margin: "0.7em 0"
+        }
     },
     overrides: {
         MuiTooltip: {
@@ -32,8 +35,14 @@ const theme = createMuiTheme({
     }
 });
 
+const hashes = ["#translate", "#about", "#support"];
+
 function App() {
-    const [tab, setTab] = useState(0);
+    const [tab, setTab] = useState(Math.max(0, hashes.indexOf(window.location.hash)));
+    const hash = useHash()
+    useEffect(()=> {
+        setTab(Math.max(0, hashes.indexOf(hash)))
+    }, [hash])
 
     return (
         <ThemeProvider theme={theme}>
@@ -54,6 +63,7 @@ function App() {
                 <Paper style={{marginTop: 20, marginBottom: 40}}>
                     <Tabs centered onChange={(event: React.ChangeEvent<{}>, newValue: number) => {
                         setTab(newValue);
+                        window.location.hash = hashes[newValue];
                     }} value={tab}>
                         <Tab label="Translate" />
                         <Tab label="About" />

@@ -13,6 +13,7 @@ import TranslateControls from "./TranslateControls";
 import TranslationInput from "./TranslationInput";
 import ErrorNotification from "./ErrorNotification";
 import Alignment from "./Alignment";
+import {Skeleton} from "@material-ui/lab";
 
 function sortLanguages(a: string, b: string) {
     if (topLanguages.includes(a)) {
@@ -155,9 +156,9 @@ function Translate() {
                 <Grid item xs={12} sm={6}>
                     <Card style={{height: "13em"}}>
                         <CardContent classes={{root: classes.cardcontent}}>
-                            <Typography
-                                style={{minHeight: "9.3em"}}>{latestTranslationResponse?.translatedText}</Typography>
-                            {latestTranslationResponse ?
+                            {loadingResponse ? <Skeleton variant="text" /> : <Typography
+                                style={{minHeight: "9.3em"}}>{latestTranslationResponse?.translatedText}</Typography>}
+                            {!loadingResponse && latestTranslationResponse ?
                                 <Typography align="right">
                                     Translation powered
                                     by {_.startCase(latestTranslationResponse.engine)} (version {latestTranslationResponse.engineVersion})
