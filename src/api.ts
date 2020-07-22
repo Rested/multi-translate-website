@@ -96,3 +96,10 @@ export async function translate(translationRequest: TranslationRequest): Promise
         return "Unknown Network Error"
     })
 }
+
+export async function getVersion() {
+    return fetch(`${apiUrl}/openapi.json`, {
+        method: "GET",
+        cache: "force-cache"
+    }).then(r => r.json()).then(json => json.info.version);
+}

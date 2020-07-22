@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import './App.css';
-import {Typography, ThemeProvider, createMuiTheme, Tabs, Paper, Tab} from "@material-ui/core";
+import {Typography, ThemeProvider, createMuiTheme, Tabs, Paper, Tab, Badge} from "@material-ui/core";
 import logo from "./logo.svg"
 import {Favorite} from "@material-ui/icons";
 import logoTxt from "./logotxt.svg"
@@ -8,6 +8,7 @@ import Translate from "./components/Translate";
 import About from "./components/About";
 import Support from "./components/Support";
 import useHash from "./hooks/hash";
+import {getVersion} from "./api";
 
 const theme = createMuiTheme({
     palette: {
@@ -39,17 +40,25 @@ const hashes = ["#translate", "#about", "#support"];
 
 function App() {
     const [tab, setTab] = useState(Math.max(0, hashes.indexOf(window.location.hash)));
+    const [version, setVersion] = useState("0.6.0");
     const hash = useHash()
     useEffect(()=> {
         setTab(Math.max(0, hashes.indexOf(hash)))
-    }, [hash])
+    }, [hash]);
+
+    useEffect(()=> {
+        getVersion().then(v => setVersion(v));
+    }, [])
 
     return (
         <ThemeProvider theme={theme}>
             <div className="App">
                 <header>
                     <Typography color="textSecondary" variant="h2"
-                                style={{display: "inline-block"}}>Multi-Translate</Typography>
+                                style={{display: "inline-block"}}><Badge badgeContent={`Version ${version}`} anchorOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right',
+                    }} color="primary">Multi-Translate</Badge></Typography>
                     <Typography color="textSecondary"
                                style={{display: "inline-block", marginLeft: "1rem", marginRight: "1rem"}}>made
                         with <Favorite fontSize="inherit"/> by</Typography>

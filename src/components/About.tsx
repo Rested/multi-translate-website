@@ -6,13 +6,13 @@ import {
     AccordionDetails,
     Typography,
     Card,
-    CardContent
+    CardContent, Button
 } from "@material-ui/core";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import StarIcon from '@material-ui/icons/Star';
 import SaveAltIcon from '@material-ui/icons/SaveAlt';
 import AutorenewIcon from '@material-ui/icons/Autorenew';
-
+import GitHubIcon from '@material-ui/icons/GitHub';
 
 const FAQs = [{
     title: "Who is Multi-Translate for?",
@@ -85,6 +85,17 @@ export default function About() {
                         with the ability to fallback to another service when a request fails.
                     </Typography>
                     <Typography variant="h5">Technical Details</Typography>
+                    <Typography style={pStyles}>
+                        Multi Translate is an open source project so you can view the code in full on Github
+                        <br/>
+                        <a href="https://github.com/rekon-oss/multi-translate"><Button
+                            variant="contained"
+                            color="default"
+                            startIcon={<GitHubIcon/>}
+                        >
+                            Open Github
+                        </Button></a>
+                    </Typography>
                     <Typography style={pStyles}>
                         Multi-Translate uses FastApi and asyncpg to keep things snappy zap, and offers graphql and json
                         endpoints. The persistence is provided by postgres, and redis is used for rate limiting.
