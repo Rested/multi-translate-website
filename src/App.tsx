@@ -67,7 +67,7 @@ function App() {
                     }} value={tab}>
                         <Tab label="Translate" />
                         <Tab label="About" />
-                        <Tab label="Consulting" />
+                        <Tab label="Support" />
                     </Tabs>
                 </Paper>
                 <section style={tab !== 0 ? {display: "none"} : {}}>
