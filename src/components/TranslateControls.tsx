@@ -4,7 +4,7 @@ import {
     CardContent,
     Divider,
     FormControlLabel,
-    FormGroup,
+    FormGroup, Hidden,
     MenuItem,
     Select,
     Switch, Tooltip,
@@ -37,7 +37,10 @@ export default function TranslateControls({classes, useAlignment, setUseAlignmen
                         labelPlacement="start"
                     />
                 </Tooltip>
+                <Hidden xsDown>
+
                 <Divider orientation="vertical" flexItem/>
+                </Hidden>
                 <Tooltip
                     title="Fall back to alternative engines when the request fails with the best or preferred engine">
                     <FormControlLabel
@@ -47,7 +50,9 @@ export default function TranslateControls({classes, useAlignment, setUseAlignmen
                         labelPlacement="start"
                     />
                 </Tooltip>
+                <Hidden xsDown>
                 <Divider orientation="vertical" flexItem/>
+                </Hidden>
                 <FormControlLabel style={{marginLeft: -16}}
                                   control={<Select value={preferredEngine} style={{marginLeft: 16}}
                                                    variant="outlined"

@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from "react"
-import {Button, Card, CardContent, Grid, LinearProgress, Tooltip, Typography} from "@material-ui/core";
+import {Button, Card, CardContent, Grid, Hidden, LinearProgress, Tooltip, Typography} from "@material-ui/core";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 
@@ -59,9 +59,9 @@ function Translate() {
     const [loadingResponse, setLoadingResponse] = useState(false);
 
 
-    useEffect(()=> {
+    useEffect(() => {
         setHideAlignment(true)
-        setTimeout(()=> {
+        setTimeout(() => {
             setHideAlignment(false);
         }, 100);
     }, [latestTranslationResponse])
@@ -156,7 +156,7 @@ function Translate() {
                 <Grid item xs={12} sm={6}>
                     <Card style={{height: "13em"}}>
                         <CardContent classes={{root: classes.cardcontent}}>
-                            {loadingResponse ? <Skeleton variant="text" /> : <Typography
+                            {loadingResponse ? <Skeleton variant="text"/> : <Typography
                                 style={{minHeight: "9.3em"}}>{latestTranslationResponse?.translatedText}</Typography>}
                             {!loadingResponse && latestTranslationResponse ?
                                 <Typography align="right">
@@ -178,9 +178,10 @@ function Translate() {
                         </Card>
                     </Grid>
                 </React.Fragment>) : null}
-                <Grid item xs={8} sm={10}>{loadingResponse ? <LinearProgress color="secondary" /> : null}</Grid>
-                <Grid item xs={4} sm={2} style={{textAlign: "right"}}>
-                    <Button size="large" onClick={() => {
+                <Hidden xsDown><Grid item sm={8} md={10}>{loadingResponse ?
+                    <LinearProgress color="secondary"/> : null}</Grid></Hidden>
+                <Grid item xs={12} sm={4} md={2} style={{textAlign: "right"}}>
+                    <Button size="large" fullWidth onClick={() => {
                         setLoadingResponse(true);
                         translate({
                             sourceText: textRef.current ? textRef.current.value : "",

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import './App.css';
-import {Typography, ThemeProvider, createMuiTheme, Tabs, Paper, Tab, Badge, Grid} from "@material-ui/core";
+import {Typography, ThemeProvider, createMuiTheme, Tabs, Paper, Tab, Badge, Grid, Hidden} from "@material-ui/core";
 import logo from "./logo.svg"
 import {Favorite} from "@material-ui/icons";
 import logoTxt from "./logotxt.svg"
@@ -58,7 +58,12 @@ function App() {
                         <Grid item xs={12} sm={6}>
                             <Typography color="textSecondary" variant="h2"
                                         style={{display: "inline-block"}}>Multi-Translate</Typography>
-                            <Typography color="textSecondary" style={{display: "inline-block", marginLeft: "1rem"}}> Version {version}</Typography>
+                            <Hidden xsDown>
+                                <Typography color="textSecondary" style={{
+                                    display: "inline-block",
+                                    marginLeft: "1rem"
+                                }}> Version {version}</Typography>
+                            </Hidden>
                         </Grid>
                         <Grid item xs={12} sm={6} style={{textAlign: "right"}}>
                             <Typography color="textSecondary"
