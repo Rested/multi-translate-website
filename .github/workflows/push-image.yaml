@@ -1,0 +1,22 @@
+
+name: Docker package
+
+on:
+  push:
+    branches:
+      - master
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@master
+      - name: Publish to Registry
+        uses: elgohr/Publish-Docker-Github-Action@master
+        with:
+          name: rekon-oss/multi-translate-website/multi-translate-website
+          username: rested
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: docker.pkg.github.com
