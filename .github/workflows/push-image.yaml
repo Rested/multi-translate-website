@@ -16,8 +16,7 @@ jobs:
       - name: Publish to Registry
         uses: elgohr/Publish-Docker-Github-Action@master
         with:
-          name: rekon-oss/multi-translate-website/multi-translate-website
-          username: rested
-          password: ${{ secrets.GITHUB_TOKEN }}
-          registry: docker.pkg.github.com
+          name: rekonuk/multi-translate
+          username: restd
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
           snapshot: true
